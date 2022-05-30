@@ -1,7 +1,7 @@
 # Write your MySQL query statement below
 with t1 as(
     SELECT *,
-    row_number() OVER(partition by user_id ORDER BY activity_date ASC) as rk
+    RANK() OVER(partition by user_id ORDER BY activity_date ASC) as rk
     FROM traffic
     WHERE activity = 'login'
 )
