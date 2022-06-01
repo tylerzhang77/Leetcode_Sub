@@ -1,10 +1,12 @@
 # Write your MySQL query statement below
-select i.invoice_id,
+SELECT i.invoice_id,
        c.customer_name,
        i.price,
-       count(distinct t.contact_name) as contacts_cnt,
-       sum(case when contact_name in (select distinct customer_name from Customers) then 1 else 0 end) as trusted_contacts_cnt
-from Invoices as i
-join Customers as c on c.customer_id = i.user_id
-left join Contacts as t on c.customer_id = t.user_id
-group by i.invoice_id
+       COUNT(distinct t.contact_name) as contacts_cnt,
+       SUM(CASE WHEN contact_name
+            IN (select distinct customer_name from Customers)
+            THEN 1 ELSE 0 END) as trusted_contacts_cnt
+FROM Invoices as i
+JOIN Customers as c on c.customer_id = i.user_id
+LEFT JOIN Contacts as t on c.customer_id = t.user_id
+GROUP BY i.invoice_id
