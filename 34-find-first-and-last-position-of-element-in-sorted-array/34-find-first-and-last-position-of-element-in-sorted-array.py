@@ -1,33 +1,52 @@
-class Solution:
+class Solution(object): 
+
     def searchRange(self, nums, target):
-        def findleft(nums, target):
-            L, R = 0, len(nums) - 1
-            left_ind = -2
-            while L <= R:
-                mid = (L+R) // 2
-                if nums[mid] >= target:
-                    R = mid - 1
-                    left_ind = R
-                else:
-                    L = mid + 1
-            return left_ind
-        def findright(nums, target):
-            L, R = 0, len(nums) - 1
-            right_ind = -2
-            while L <= R:
-                mid = (L+R) // 2
-                if nums[mid] <= target:
-                    L = mid + 1
-                    right_ind = L
-                else:
-                    R = mid - 1
-            return right_ind
-        Lind, Rind = findleft(nums, target), findright(nums, target)
-        if Lind == -2 or Rind == -2: return [-1, -1]
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        result = [-1, -1] #1
+        
+        result[0] = self.findStartingIndex(nums, target)  #2 
+        result[1] = self.findEndingIndex(nums, target)  #3
+        
+        return result #4
 
-        if Rind - Lind >1: return [Lind + 1, Rind - 1]
-
-        return [-1, -1]
+    def findStartingIndex(self, nums, target):
+        index = -1 #5 
+        low, high = 0, len(nums) -1 #6
+        
+        while low <= high: #7
+            mid = low + (high - low)//2 #8
+			
+            if nums[mid] == target: #9
+                index = mid #10
+                high = mid - 1 #11
+            elif nums[mid] > target:  #12
+                high = mid - 1 #13
+            else:  #14
+                low = mid + 1 #15       
+        
+        return index
+  
+    def findEndingIndex(self, nums, target):
+        index = -1
+        low, high = 0, len(nums) -1
+        
+        while low <= high:
+            
+            mid = low + (high - low)//2
+            
+            if nums[mid] == target:
+                index = mid
+                low = mid + 1
+            elif nums[mid] > target: 
+                high = mid - 1
+            else:
+                 low = mid + 1
+                    
+        return index
 
             
                  
