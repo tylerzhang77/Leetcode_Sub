@@ -6,12 +6,14 @@
 #         self.right = right
 class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        res, stack = [],[root]
+        stack = [root]
+        res = []
         while stack:
-            node = stack.pop()
-            if node:
-                res.append(node.val)
-                stack.append(node.left)
-                stack.append(node.right)
+            cur = stack.pop()
+            if cur:
+                res.append(cur.val)
+                if cur.left:
+                    stack.append(cur.left)
+                if cur.right:
+                    stack.append(cur.right)
         return res[::-1]
-        
