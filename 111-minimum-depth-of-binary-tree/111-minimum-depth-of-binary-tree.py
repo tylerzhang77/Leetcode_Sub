@@ -6,9 +6,20 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        if root:
-            if not root.left or not root.right:
-                return 1+max(self.minDepth(root.left),self.minDepth(root.right))
-        else:
+        if root == None:
             return 0
-        return 1+min(self.minDepth(root.left),self.minDepth(root.right))
+
+        #根节点的深度为1
+        queue_ = [(root,1)]
+        while queue_:
+            cur, depth = queue_.pop(0)
+            
+            if cur.left == None and cur.right == None:
+                return depth
+            #先左子节点，由于左子节点没有孩子，则就是这一层了
+            if cur.left:
+                queue_.append((cur.left,depth + 1))
+            if cur.right:
+                queue_.append((cur.right,depth + 1))
+
+        return 0
