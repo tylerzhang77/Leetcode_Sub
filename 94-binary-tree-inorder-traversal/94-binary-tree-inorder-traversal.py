@@ -7,11 +7,12 @@
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
-        self.helper(root,res)
-        return res
-    def helper(self, root, res):
-        if root:
-            self.helper(root.left, res)
+        def traversal(root):
+            if root is None:
+                return
+            traversal(root.left)
             res.append(root.val)
-            self.helper(root.right, res)
-            return res
+            traversal(root.right)
+        traversal(root)
+        return res
+                
