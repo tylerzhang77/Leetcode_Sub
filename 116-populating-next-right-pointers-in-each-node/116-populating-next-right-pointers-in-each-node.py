@@ -9,16 +9,17 @@ class Node:
 """
 
 class Solution:
-    def connect(self, root):
-        if not root:
-            return 
+    def connect(self, root): 
         queue = [root]
-        while queue:
-            curr = queue.pop(0)
-            if curr.left and curr.right:
-                curr.left.next = curr.right
-                if curr.next:
-                    curr.right.next = curr.next.left
-                queue.append(curr.left)
-                queue.append(curr.right)
+        while queue and root:
+            n = len(queue)
+            for i in range(n):
+                rt = queue.pop(0)
+                if rt.left:
+                    queue.append(rt.left)
+                if rt.right:
+                    queue.append(rt.right)
+                if i == n-1:
+                    break
+                rt.next = queue[0]
         return root
