@@ -6,20 +6,19 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        if root == None:
+        if not root:
             return 0
-
-        #根节点的深度为1
-        queue_ = [(root,1)]
-        while queue_:
-            cur, depth = queue_.pop(0)
-            
-            if cur.left == None and cur.right == None:
-                return depth
-            #先左子节点，由于左子节点没有孩子，则就是这一层了
-            if cur.left:
-                queue_.append((cur.left,depth + 1))
-            if cur.right:
-                queue_.append((cur.right,depth + 1))
-
-        return 0
+        level = deque()
+        level.append(root)
+        res = 1
+        while level:
+            for i in range(len(level)):
+                rt = level.popleft()
+                if not rt.left and not rt.right:
+                    return res
+                if rt.left:
+                    level.append(rt.left)
+                if rt.right:
+                    level.append(rt.right)
+            res += 1
+        return res
