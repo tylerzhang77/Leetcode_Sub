@@ -8,7 +8,7 @@ class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
         def helper(data, left, right):
             if left <= right:
-                mid = (left+right) // 2
+                mid = left + (right - left) // 2
                 node = TreeNode(nums[mid])
                 node.left = helper(data, left, mid-1)
                 node.right = helper(data, mid+1, right)
